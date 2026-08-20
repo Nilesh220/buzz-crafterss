@@ -1,9 +1,25 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CustomCursor from "@/components/layout/CustomCursor";
 import SmoothScroller from "@/components/shared/SmoothScroller";
+
+// Self-hosted, zero-latency font loading with font-display: swap
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+  weight: ["400", "500", "600"],
+});
 
 export const metadata: Metadata = {
   title: "Buzzcrafterss — Brand Experience & Integrated Marketing Agency",
@@ -53,18 +69,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="bg-[#0a0a0a]">
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable} bg-[#0a0a0a]`}>
       <head>
-        <link rel="preconnect" href="https://api.fontshare.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preconnect and non-blocking font delivery for Satoshi */}
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
         <link
-          rel="stylesheet"
+          rel="preload"
+          as="style"
           href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"
         />
         <script
           type="application/ld+json"
@@ -85,7 +101,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-[#0a0a0a] text-[#f5f5f0] min-h-screen flex flex-col w-full antialiased selection:bg-[#c8f135] selection:text-[#0a0a0a]">
+      <body className="bg-[#0a0a0a] text-[#f5f5f0] min-h-screen flex flex-col w-full antialiased selection:bg-[#c8f135] selection:text-[#0a0a0a] font-inter">
         <SmoothScroller />
         <CustomCursor />
         <Navbar />

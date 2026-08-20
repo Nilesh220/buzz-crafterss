@@ -17,19 +17,33 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
+  const ticking = useRef(false);
 
   useEffect(() => {
     const onScroll = () => {
-      const y = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (y / docHeight) * 100 : 0;
-      setScrollProgress(progress);
+      if (!ticking.current) {
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = docHeight > 0 ? y / docHeight : 0;
 
-      setScrolled(y > 30);
-      setHidden(y > lastScrollY.current && y > 280 && !menuOpen);
-      lastScrollY.current = y;
+          if (progressBarRef.current) {
+            progressBarRef.current.style.transform = `scaleX(${progress})`;
+          }
+
+          const isScrolled = y > 30;
+          const isHidden = y > lastScrollY.current && y > 280 && !menuOpen;
+
+          setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
+          setHidden((prev) => (prev !== isHidden ? isHidden : prev));
+
+          lastScrollY.current = y;
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -49,22 +63,23 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Scroll Progress Bar */}
+      {/* Zero-Lag Scroll Progress Bar */}
       <div
-        className="fixed top-0 left-0 right-0 h-[2px] bg-[#c8f135] z-[60] origin-left pointer-events-none transition-transform duration-75 ease-out"
+        ref={progressBarRef}
+        className="fixed top-0 left-0 right-0 h-[2px] bg-[#c8f135] z-[60] origin-left pointer-events-none will-change-transform"
         style={{
-          transform: `scaleX(${scrollProgress / 100})`,
+          transform: "scaleX(0)",
         }}
       />
 
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-400 ease-in-out ${
           hidden ? "-translate-y-full" : "translate-y-0"
         }`}
       >
         <div className="site-container pt-3 sm:pt-4">
           <nav
-            className={`flex items-center justify-between px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl transition-all duration-400 w-full ${
+            className={`flex items-center justify-between px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl transition-colors duration-300 w-full ${
               scrolled
                 ? "bg-[#0a0a0a]/90 backdrop-blur-xl border border-[#262626] shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
                 : "bg-[#0a0a0a]/50 backdrop-blur-md border border-white/10"

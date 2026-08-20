@@ -1,18 +1,14 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, memo } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles, MapPin, Zap, Radio, CheckCircle2, ShieldCheck, Activity } from "lucide-react";
+import { ArrowUpRight, Sparkles, MapPin } from "lucide-react";
 
-export default function HeroSection() {
-  const [mounted, setMounted] = useState(false);
-  const [timeStr, setTimeStr] = useState("");
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
+// Isolated zero-re-render Live Clock component
+const LiveClock = memo(function LiveClock() {
+  const [time, setTime] = useState("");
 
   useEffect(() => {
-    setMounted(true);
-
     const updateTime = () => {
       const now = new Date();
       const options: Intl.DateTimeFormatOptions = {
@@ -22,7 +18,7 @@ export default function HeroSection() {
         second: "2-digit",
         hour12: true,
       };
-      setTimeStr(now.toLocaleTimeString("en-US", options) + " IST");
+      setTime(now.toLocaleTimeString("en-US", options) + " IST");
     };
 
     updateTime();
@@ -30,36 +26,64 @@ export default function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
+  return <span>{time || "10:30:00 PM IST"}</span>;
+});
+
+export default function HeroSection() {
+  const [mounted, setMounted] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const glow1Ref = useRef<HTMLDivElement>(null);
+  const glow2Ref = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!heroRef.current) return;
     const rect = heroRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setMouseOffset({ x: x * 20, y: y * 20 });
+
+    // Direct RAF hardware accelerated translation - Zero React state re-renders!
+    requestAnimationFrame(() => {
+      if (glow1Ref.current) {
+        glow1Ref.current.style.transform = `translate3d(${x * -30}px, ${y * -30}px, 0)`;
+      }
+      if (glow2Ref.current) {
+        glow2Ref.current.style.transform = `translate3d(${x * 40}px, ${y * 40}px, 0)`;
+      }
+      if (cardRef.current) {
+        cardRef.current.style.transform = `translate3d(${x * 12}px, ${y * 12}px, 0)`;
+      }
+    });
   };
 
   return (
     <section
       ref={heroRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-[92vh] lg:min-h-screen bg-[#0a0a0a] text-[#f5f5f0] overflow-hidden border-b border-[#222] flex items-center pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-24 w-full"
+      className="relative min-h-[90vh] lg:min-h-screen bg-[#0a0a0a] text-[#f5f5f0] overflow-hidden border-b border-[#222] flex items-center pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-24 w-full"
     >
       {/* Background Interactive Ambient Mesh */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
         {/* Dynamic Glow Sphere 1 */}
         <div
-          className="absolute top-1/4 -left-32 w-[600px] h-[600px] rounded-full blur-[160px] opacity-25 transition-transform duration-700 ease-out"
+          ref={glow1Ref}
+          className="absolute top-1/4 -left-32 w-[600px] h-[600px] rounded-full blur-[160px] opacity-25 will-change-transform"
           style={{
             background: "radial-gradient(circle, #c8f135 0%, rgba(200,241,53,0) 70%)",
-            transform: `translate3d(${mouseOffset.x * -1.5}px, ${mouseOffset.y * -1.5}px, 0)`,
+            transform: "translate3d(0,0,0)",
           }}
         />
         {/* Dynamic Glow Sphere 2 */}
         <div
-          className="absolute bottom-10 right-0 w-[700px] h-[700px] rounded-full blur-[180px] opacity-20 transition-transform duration-700 ease-out"
+          ref={glow2Ref}
+          className="absolute bottom-10 right-0 w-[700px] h-[700px] rounded-full blur-[180px] opacity-20 will-change-transform"
           style={{
             background: "radial-gradient(circle, #38bdf8 0%, rgba(56,189,248,0) 70%)",
-            transform: `translate3d(${mouseOffset.x * 2}px, ${mouseOffset.y * 2}px, 0)`,
+            transform: "translate3d(0,0,0)",
           }}
         />
 
@@ -83,7 +107,7 @@ export default function HeroSection() {
             
             {/* Status Pill Badge */}
             <div
-              className="transition-all duration-700"
+              className="transition-all duration-500"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(12px)",
@@ -99,7 +123,7 @@ export default function HeroSection() {
 
             {/* Kinetic Title */}
             <div
-              className="transition-all duration-700 delay-100"
+              className="transition-all duration-500 delay-100"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(16px)",
@@ -117,7 +141,7 @@ export default function HeroSection() {
 
             {/* Narrative Tagline */}
             <div
-              className="transition-all duration-700 delay-200 max-w-2xl"
+              className="transition-all duration-500 delay-150 max-w-2xl"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(16px)",
@@ -130,7 +154,7 @@ export default function HeroSection() {
 
             {/* Action Buttons */}
             <div
-              className="flex flex-wrap items-center gap-4 pt-2 transition-all duration-700 delay-300"
+              className="flex flex-wrap items-center gap-4 pt-2 transition-all duration-500 delay-200"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(16px)",
@@ -156,7 +180,7 @@ export default function HeroSection() {
 
             {/* Quick Metrics Bar */}
             <div
-              className="pt-8 border-t border-[#222] grid grid-cols-3 gap-6 transition-all duration-700 delay-400 max-w-xl"
+              className="pt-8 border-t border-[#222] grid grid-cols-3 gap-6 transition-all duration-500 delay-250 max-w-xl"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(16px)",
@@ -180,12 +204,11 @@ export default function HeroSection() {
 
           {/* Right Column: Expansive Agency Live Engine */}
           <div
-            className="lg:col-span-5 transition-all duration-700 delay-300 w-full"
+            ref={cardRef}
+            className="lg:col-span-5 transition-all duration-500 delay-200 w-full will-change-transform"
             style={{
               opacity: mounted ? 1 : 0,
-              transform: mounted
-                ? `translate3d(${mouseOffset.x * 0.5}px, ${mouseOffset.y * 0.5}px, 0)`
-                : "translateY(20px)",
+              transform: mounted ? "translate3d(0,0,0)" : "translateY(20px)",
             }}
           >
             <div className="relative rounded-2xl border border-[#2a2a2a] bg-[#121212]/90 backdrop-blur-xl p-6 sm:p-8 md:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.85)] overflow-hidden group hover:border-[#444] transition-all w-full">
@@ -199,7 +222,7 @@ export default function HeroSection() {
                   </span>
                 </div>
                 <div className="font-mono text-xs text-neutral-400 bg-[#0a0a0a] px-3 py-1 rounded-md border border-[#222]">
-                  {timeStr || "ACTIVE"}
+                  <LiveClock />
                 </div>
               </div>
 
