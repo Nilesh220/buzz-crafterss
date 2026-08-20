@@ -16,7 +16,7 @@ import FinalCTA from "@/components/home/FinalCTA";
 
 export default function Home() {
   return (
-    <main className="bg-[#0a0a0a] min-h-screen text-[#f5f5f0]">
+    <main className="bg-[#0a0a0a] min-h-screen text-[#f5f5f0] w-full overflow-x-hidden">
       {/* 1. Hero Section */}
       <HeroSection />
 

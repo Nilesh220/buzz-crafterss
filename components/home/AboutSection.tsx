@@ -1,99 +1,74 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 
 export default function AboutSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setInView(true);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       id="about"
-      ref={sectionRef}
-      className="bg-bc-white py-28 md:py-44 px-6 sm:px-10 md:px-16 lg:px-20 border-b border-bc-black/10"
+      className="bg-[#f5f5f0] text-[#0a0a0a] py-20 sm:py-28 md:py-36 border-b border-black/10 w-full"
     >
-      <div className="max-w-7xl mx-auto w-full">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+      <div className="site-container">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 xl:gap-20 items-start w-full">
           {/* Left — Headline */}
-          <div
-            className="lg:col-span-6 transition-all duration-700"
-            style={{
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0)" : "translateY(16px)",
-            }}
-          >
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-5 h-px bg-bc-black" />
-              <span className="font-inter text-xs font-semibold tracking-[0.25em] uppercase text-bc-black/50">
-                About Buzzcrafterss
+          <div className="lg:col-span-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-6 h-px bg-black" />
+              <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-black/60">
+                09 / AGENCY IDENTITY
               </span>
             </div>
 
-            <h2 className="font-satoshi font-black text-bc-black tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.08]">
+            <h2 className="font-satoshi font-black text-black tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.05]">
               <span className="block">WE&apos;RE NOT</span>
-              <span className="block text-bc-black/60">HERE TO MAKE</span>
-              <span className="block text-bc-black">SAFE MARKETING.</span>
+              <span className="block text-black/50">HERE TO MAKE</span>
+              <span className="block text-black">SAFE MARKETING.</span>
             </h2>
+
+            <p className="font-inter text-black/75 text-base sm:text-lg md:text-xl leading-relaxed mt-6 max-w-xl">
+              Buzzcrafterss was engineered from the ground up for modern brands that want to move people — not simply broadcast at them.
+            </p>
           </div>
 
-          {/* Right — Body */}
-          <div
-            className="lg:col-span-6 flex flex-col justify-center gap-8 lg:pt-2 transition-all duration-700 delay-150"
-            style={{
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0)" : "translateY(16px)",
-            }}
-          >
-            <p className="font-inter text-bc-black/80 text-lg md:text-xl leading-relaxed">
-              Buzzcrafterss was built for brands that want to move people — not simply reach them.
-            </p>
-            <p className="font-inter text-bc-black/70 text-base md:text-lg leading-relaxed">
-              We bring together strategy, creativity, experiences, creators, communities and technology to build campaigns that people can see, participate in, share and remember.
+          {/* Right — Body & Stats */}
+          <div className="lg:col-span-6 flex flex-col gap-6 w-full">
+            <p className="font-inter text-black/80 text-base sm:text-lg md:text-xl leading-relaxed">
+              We bring together strategic rigor, spatial craftsmanship, creator partnerships, and interactive software to engineer campaigns that audiences step inside, celebrate, and share.
             </p>
 
-            <div className="flex flex-col gap-3 pt-2">
+            <div className="flex flex-col gap-3.5">
               {[
-                "Small enough to move fast.",
-                "Ambitious enough to think big.",
-                "Built to execute.",
-              ].map((line) => (
-                <div key={line} className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-bc-lime shrink-0" />
-                  <span className="font-satoshi font-bold text-bc-black text-lg md:text-xl">
-                    {line}
-                  </span>
+                { title: "Small enough to move at culture speed.", desc: "Zero bureaucratic layers. We launch fast." },
+                { title: "Ambitious enough to command national scale.", desc: "Pan-India college network & city activations." },
+                { title: "Built to execute 100% turnkey.", desc: "From concept design to on-ground fabrication." },
+              ].map((item) => (
+                <div key={item.title} className="p-5 rounded-2xl border border-black/10 bg-white/80 shadow-sm">
+                  <div className="flex items-center gap-2.5 mb-1">
+                    <div className="w-2 h-2 rounded-full bg-[#c8f135] shrink-0" />
+                    <span className="font-satoshi font-bold text-black text-base sm:text-lg">
+                      {item.title}
+                    </span>
+                  </div>
+                  <p className="font-inter text-xs sm:text-sm text-black/60 pl-4.5">
+                    {item.desc}
+                  </p>
                 </div>
               ))}
             </div>
 
             {/* Stats row */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-bc-black/10 mt-4">
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-black/10 mt-2">
               {[
-                { value: "6", label: "Service Pillars" },
+                { value: "6", label: "Core Disciplines" },
                 { value: "50+", label: "Colleges Activated" },
-                { value: "100%", label: "Campaign-First" },
+                { value: "100%", label: "Turnkey Execution" },
               ].map((stat) => (
                 <div key={stat.label}>
-                  <div className="font-satoshi font-black text-2xl sm:text-3xl md:text-4xl text-bc-black mb-1">
+                  <div className="font-satoshi font-black text-2xl sm:text-4xl text-black">
                     {stat.value}
                   </div>
-                  <div className="font-inter text-xs text-bc-black/50 tracking-wide">
+                  <div className="font-mono text-xs text-black/60 tracking-wide mt-1">
                     {stat.label}
                   </div>
                 </div>

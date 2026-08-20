@@ -3,94 +3,118 @@
 import { useState } from "react";
 import { services } from "@/lib/data/services";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 
 export default function ServicesSection() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   return (
     <section
       id="services"
-      className="bg-[#0a0a0a] text-[#f5f5f0] py-28 md:py-44 px-6 sm:px-10 md:px-16 lg:px-24 border-b border-[#222]"
+      className="bg-[#0a0a0a] text-[#f5f5f0] py-20 sm:py-28 md:py-36 border-b border-[#222] w-full"
     >
-      <div className="max-w-7xl mx-auto w-full">
+      <div className="site-container">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 md:mb-20 pb-10 border-b border-[#222]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16 pb-8 border-b border-[#222]">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-5 h-px bg-[#c8f135]" />
-              <span className="font-inter text-xs font-semibold tracking-[0.25em] uppercase text-[#c8f135]">
-                What We Do
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-6 h-px bg-[#c8f135]" />
+              <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-[#c8f135]">
+                03 / CAPABILITIES
               </span>
             </div>
-            <h2 className="font-satoshi font-black text-white tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.08]">
+            <h2 className="font-satoshi font-black text-white tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.05]">
               Six Ways We Operate.
             </h2>
           </div>
-          <p className="font-inter text-neutral-400 text-base md:text-lg max-w-md md:text-right leading-relaxed">
-            Each service is designed to stand on its own or orchestrate seamlessly as an integrated multi-channel campaign.
+          <p className="font-inter text-neutral-400 text-sm sm:text-base md:text-lg max-w-md md:text-right leading-relaxed">
+            Each discipline works as a standalone specialist unit or orchestrates into an omnichannel master campaign.
           </p>
         </div>
 
         {/* Vertical Services List */}
-        <div className="divide-y divide-[#222] border-y border-[#222]">
-          {services.map((service, index) => (
-            <Link
-              key={service.id}
-              href="/services"
-              className="block relative group py-8 sm:py-10 md:py-12 transition-all duration-300"
-              onMouseEnter={() => setActiveIndex(index)}
-              data-cursor="explore"
-            >
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-12">
-                {/* Left: Number & Title */}
-                <div className="flex items-center gap-6 sm:gap-10">
-                  <span
-                    className="font-mono text-sm sm:text-base font-bold text-neutral-500 w-8 shrink-0 transition-colors duration-300"
-                    style={{
-                      color: activeIndex === index ? "#c8f135" : undefined,
-                    }}
-                  >
-                    {service.id}
-                  </span>
+        <div className="divide-y divide-[#222] border-y border-[#222] w-full">
+          {services.map((service, index) => {
+            const isActive = activeIndex === index;
+            return (
+              <div
+                key={service.id}
+                onMouseEnter={() => setActiveIndex(index)}
+                onClick={() => setActiveIndex(index)}
+                className={`transition-all duration-300 w-full ${
+                  isActive ? "bg-[#141414]/90" : "bg-transparent hover:bg-[#111]"
+                }`}
+              >
+                <div className="py-6 sm:py-8 md:py-10 px-4 sm:px-6 md:px-8 flex flex-col gap-4">
+                  {/* Top Bar: Number, Title, Arrow */}
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-4 sm:gap-8">
+                      <span
+                        className="font-mono text-sm sm:text-base font-bold transition-colors"
+                        style={{ color: isActive ? "#c8f135" : "#666" }}
+                      >
+                        {service.id}
+                      </span>
+                      <h3
+                        className="font-satoshi font-bold tracking-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl transition-colors"
+                        style={{ color: isActive ? "#c8f135" : "#f5f5f0" }}
+                      >
+                        {service.title}
+                      </h3>
+                    </div>
 
-                  <h3
-                    className="font-satoshi font-bold tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] leading-snug transition-colors duration-300"
-                    style={{
-                      color: activeIndex === index ? "#c8f135" : "#f5f5f0",
-                    }}
-                  >
-                    {service.title}
-                  </h3>
-                </div>
+                    <div className="flex items-center gap-6">
+                      <span className="font-inter text-xs text-neutral-400 hidden lg:block max-w-xs text-right">
+                        {service.tagline}
+                      </span>
+                      <div
+                        className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all ${
+                          isActive
+                            ? "border-[#c8f135] bg-[#c8f135] text-black shadow-[0_0_15px_rgba(200,241,53,0.3)]"
+                            : "border-[#333] text-neutral-400"
+                        }`}
+                      >
+                        <ArrowUpRight size={18} />
+                      </div>
+                    </div>
+                  </div>
 
-                {/* Right: Tagline & Button Arrow */}
-                <div className="flex items-center gap-6 pl-14 lg:pl-0 justify-between lg:justify-end">
-                  <span className="font-inter text-sm text-neutral-400 max-w-sm lg:text-right leading-relaxed hidden sm:block">
-                    {service.tagline}
-                  </span>
-
+                  {/* Expanded Items Pills */}
                   <div
-                    className="w-12 h-12 rounded-full border border-[#333] flex items-center justify-center transition-all duration-300 shrink-0 group-hover:border-[#c8f135] group-hover:bg-[#c8f135] group-hover:text-black"
+                    className={`transition-all duration-400 overflow-hidden ${
+                      isActive ? "max-h-32 opacity-100 mt-2" : "max-h-0 opacity-0"
+                    }`}
                   >
-                    <ArrowUpRight size={18} />
+                    <div className="flex flex-wrap gap-2 pl-8 sm:pl-12">
+                      {service.items.map((item) => (
+                        <span
+                          key={item}
+                          className="font-inter text-xs px-3.5 py-1.5 rounded-full border border-[#333] bg-[#0a0a0a] text-neutral-300 font-medium"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
+            );
+          })}
+        </div>
 
-              {/* Deliverable Badges */}
-              <div className="pl-14 pt-4 pb-2 flex flex-wrap gap-2">
-                {service.items.map((item) => (
-                  <span
-                    key={item}
-                    className="font-inter text-xs px-3 py-1.5 rounded-full border border-[#222] bg-[#111] text-neutral-400"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </Link>
-          ))}
+        {/* Bottom CTA bar */}
+        <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-[#222]">
+          <span className="font-inter text-sm text-neutral-400">
+            Need a bespoke combination of these capabilities?
+          </span>
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-2 font-inter text-xs font-bold tracking-widest uppercase text-[#c8f135] hover:text-white transition-colors"
+            data-cursor="explore"
+          >
+            <span>Explore Full Services Index</span>
+            <ArrowUpRight size={14} />
+          </Link>
         </div>
       </div>
     </section>

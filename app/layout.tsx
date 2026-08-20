@@ -53,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="bg-[#0a0a0a]">
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -64,7 +64,7 @@ export default function RootLayout({
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
         />
         <script
           type="application/ld+json"
@@ -85,11 +85,13 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
+      <body className="bg-[#0a0a0a] text-[#f5f5f0] min-h-screen flex flex-col w-full antialiased selection:bg-[#c8f135] selection:text-[#0a0a0a]">
         <SmoothScroller />
         <CustomCursor />
         <Navbar />
-        <main>{children}</main>
+        <div className="flex-1 w-full flex flex-col">
+          {children}
+        </div>
         <Footer />
       </body>
     </html>

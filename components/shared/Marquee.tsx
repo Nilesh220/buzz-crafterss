@@ -1,9 +1,9 @@
 "use client";
 
 const items = [
-  "BTL", "CAMPUS MARKETING", "CREATOR MARKETING", "BRAND EXPERIENCES",
-  "EVENTS", "DIGITAL", "TECHNOLOGY", "COMMUNITY", "ACTIVATIONS",
-  "INFLUENCER", "YOUTH MARKETING", "INTEGRATED CAMPAIGNS",
+  "BTL ACTIVATIONS", "CAMPUS MARKETING", "CREATOR ECOSYSTEMS", "BRAND EXPERIENCES",
+  "EXPERIENTIAL EVENTS", "DIGITAL PRODUCTS", "TECHNOLOGY", "COMMUNITY HUBS",
+  "INFLUENCER CAMPAIGNS", "YOUTH CULTURE", "INTEGRATED CAMPAIGNS",
 ];
 
 interface MarqueeProps {
@@ -12,13 +12,13 @@ interface MarqueeProps {
   dark?: boolean;
 }
 
-export default function Marquee({ reverse = false, speed = 40, dark = false }: MarqueeProps) {
-  const content = [...items, ...items];
+export default function Marquee({ reverse = false, speed = 35, dark = true }: MarqueeProps) {
+  const content = [...items, ...items, ...items];
 
   return (
     <div
-      className={`overflow-hidden py-5 md:py-7 border-y ${
-        dark ? "bg-bc-black border-bc-border" : "bg-bc-white border-bc-black/10"
+      className={`overflow-hidden py-4 sm:py-5 border-y select-none ${
+        dark ? "bg-[#0a0a0a] border-[#222]" : "bg-[#f5f5f0] border-black/10"
       }`}
     >
       <div
@@ -31,12 +31,12 @@ export default function Marquee({ reverse = false, speed = 40, dark = false }: M
         {content.map((item, i) => (
           <span
             key={i}
-            className={`inline-flex items-center gap-6 px-6 font-inter text-[11px] font-semibold tracking-[0.2em] uppercase ${
-              dark ? "text-bc-gray" : "text-bc-black/40"
+            className={`inline-flex items-center gap-5 sm:gap-8 px-4 sm:px-6 font-mono text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase ${
+              dark ? "text-neutral-400" : "text-black/60"
             }`}
           >
-            {item}
-            <span className={dark ? "text-bc-lime" : "text-bc-lime"}>•</span>
+            <span>{item}</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#c8f135] shadow-[0_0_8px_#c8f135]" />
           </span>
         ))}
       </div>

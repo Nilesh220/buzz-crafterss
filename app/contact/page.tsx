@@ -1,11 +1,7 @@
-import type { Metadata } from "next";
-import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Contact — Start a Campaign | Buzzcrafterss",
-  description:
-    "Brief Buzzcrafterss on your upcoming brand experience, campus activation, or creator campaign.",
-};
+import { useState } from "react";
+import { ArrowUpRight, Mail, Phone, MapPin, CheckCircle2, Sparkles, Send } from "lucide-react";
 
 const campaignOptions = [
   "Brand Experience & BTL",
@@ -16,16 +12,43 @@ const campaignOptions = [
   "Full Integrated Campaign",
 ];
 
+const budgetRanges = [
+  "Under ₹5 Lakhs",
+  "₹5L - ₹15 Lakhs",
+  "₹15L - ₹50 Lakhs",
+  "₹50L+ Enterprise",
+];
+
 export default function ContactPage() {
+  const [selectedPills, setSelectedPills] = useState<string[]>(["Brand Experience & BTL"]);
+  const [selectedBudget, setSelectedBudget] = useState<string>("₹15L - ₹50 Lakhs");
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const togglePill = (opt: string) => {
+    setSelectedPills((prev) =>
+      prev.includes(opt) ? prev.filter((p) => p !== opt) : [...prev, opt]
+    );
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 600);
+  };
+
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-[#f5f5f0] pt-36 pb-28 px-6 sm:px-10 md:px-16 lg:px-24">
-      <div className="max-w-7xl mx-auto w-full">
+    <main className="min-h-screen bg-[#0a0a0a] text-[#f5f5f0] pt-28 sm:pt-36 md:pt-40 pb-20 sm:pb-28 w-full">
+      <div className="site-container">
         {/* Header */}
-        <div className="mb-20 pb-12 border-b border-[#222]">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-5 h-px bg-[#c8f135]" />
-            <span className="font-inter text-xs font-semibold tracking-[0.25em] uppercase text-[#c8f135]">
-              Project Kickoff
+        <div className="mb-14 sm:mb-20 pb-8 sm:pb-12 border-b border-[#222]">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-6 h-px bg-[#c8f135]" />
+            <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-[#c8f135]">
+              PROJECT BRIEF INITIATION
             </span>
           </div>
 
@@ -33,143 +56,208 @@ export default function ContactPage() {
             Start a Project.
           </h1>
 
-          <p className="font-inter text-neutral-400 text-lg md:text-xl max-w-2xl leading-relaxed">
-            Tell us about your brand brief, target demographic, and campaign timeline. Let&apos;s build something impossible to ignore.
+          <p className="font-inter text-neutral-400 text-base sm:text-lg md:text-xl max-w-3xl leading-relaxed">
+            Tell us about your brand brief, target demographic, and campaign goals. Let&apos;s build something impossible to ignore.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start w-full">
           {/* Form */}
-          <form className="lg:col-span-8 space-y-8">
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="font-inter text-xs uppercase tracking-widest text-neutral-400 font-semibold block">
-                  Your Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Rahul Sharma"
-                  className="w-full px-5 py-4 rounded-xl bg-[#111] border border-[#262626] text-white text-sm focus:outline-none focus:border-[#c8f135] transition-colors"
-                />
+          <div className="lg:col-span-8 w-full">
+            {submitted ? (
+              <div className="p-8 sm:p-12 rounded-2xl bg-[#141414] border border-[#c8f135]/40 text-center flex flex-col items-center gap-4 shadow-2xl">
+                <div className="w-16 h-16 rounded-full bg-[#c8f135] text-black flex items-center justify-center mb-2 shadow-[0_0_25px_rgba(200,241,53,0.4)]">
+                  <CheckCircle2 size={32} />
+                </div>
+                <h3 className="font-satoshi font-bold text-3xl text-white">
+                  Brief Received!
+                </h3>
+                <p className="font-inter text-neutral-300 text-base max-w-md">
+                  Thank you. Our strategy & client leadership team will review your brief and get back to you within 24 business hours.
+                </p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="mt-4 px-6 py-3 rounded-xl bg-white text-black font-inter text-xs font-bold uppercase tracking-wider hover:bg-[#c8f135] transition-all"
+                >
+                  Submit Another Brief
+                </button>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="space-y-2">
+                    <label className="font-mono text-xs uppercase tracking-wider text-neutral-400 font-semibold block">
+                      Your Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Rahul Sharma"
+                      className="w-full px-5 py-4 rounded-xl bg-[#111] border border-[#262626] text-white text-sm focus:outline-none focus:border-[#c8f135] transition-colors"
+                    />
+                  </div>
 
-              <div className="space-y-2">
-                <label className="font-inter text-xs uppercase tracking-widest text-neutral-400 font-semibold block">
-                  Work Email *
-                </label>
-                <input
-                  type="email"
-                  required
-                  placeholder="rahul@brand.com"
-                  className="w-full px-5 py-4 rounded-xl bg-[#111] border border-[#262626] text-white text-sm focus:outline-none focus:border-[#c8f135] transition-colors"
-                />
-              </div>
+                  <div className="space-y-2">
+                    <label className="font-mono text-xs uppercase tracking-wider text-neutral-400 font-semibold block">
+                      Work Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="rahul@brand.com"
+                      className="w-full px-5 py-4 rounded-xl bg-[#111] border border-[#262626] text-white text-sm focus:outline-none focus:border-[#c8f135] transition-colors"
+                    />
+                  </div>
 
-              <div className="space-y-2">
-                <label className="font-inter text-xs uppercase tracking-widest text-neutral-400 font-semibold block">
-                  Company / Brand Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Alpha Tech"
-                  className="w-full px-5 py-4 rounded-xl bg-[#111] border border-[#262626] text-white text-sm focus:outline-none focus:border-[#c8f135] transition-colors"
-                />
-              </div>
+                  <div className="space-y-2">
+                    <label className="font-mono text-xs uppercase tracking-wider text-neutral-400 font-semibold block">
+                      Brand / Organization *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Alpha Tech"
+                      className="w-full px-5 py-4 rounded-xl bg-[#111] border border-[#262626] text-white text-sm focus:outline-none focus:border-[#c8f135] transition-colors"
+                    />
+                  </div>
 
-              <div className="space-y-2">
-                <label className="font-inter text-xs uppercase tracking-widest text-neutral-400 font-semibold block">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  placeholder="+91 98765 43210"
-                  className="w-full px-5 py-4 rounded-xl bg-[#111] border border-[#262626] text-white text-sm focus:outline-none focus:border-[#c8f135] transition-colors"
-                />
-              </div>
-            </div>
+                  <div className="space-y-2">
+                    <label className="font-mono text-xs uppercase tracking-wider text-neutral-400 font-semibold block">
+                      Phone / WhatsApp Number
+                    </label>
+                    <input
+                      type="tel"
+                      placeholder="+91 98765 43210"
+                      className="w-full px-5 py-4 rounded-xl bg-[#111] border border-[#262626] text-white text-sm focus:outline-none focus:border-[#c8f135] transition-colors"
+                    />
+                  </div>
+                </div>
 
-            {/* Campaign Category Pills */}
-            <div className="space-y-3">
-              <label className="font-inter text-xs uppercase tracking-widest text-neutral-400 font-semibold block">
-                What are you looking to activate?
-              </label>
-              <div className="flex flex-wrap gap-2.5">
-                {campaignOptions.map((opt) => (
-                  <label
-                    key={opt}
-                    className="cursor-pointer"
-                  >
-                    <input type="checkbox" className="sr-only peer" />
-                    <span className="font-inter text-xs px-4 py-2.5 rounded-full border border-[#262626] bg-[#111] text-neutral-300 peer-checked:bg-[#c8f135] peer-checked:text-black peer-checked:border-[#c8f135] hover:border-[#444] transition-all block">
-                      {opt}
-                    </span>
+                {/* Campaign Category Multi-Select Pills */}
+                <div className="space-y-3">
+                  <label className="font-mono text-xs uppercase tracking-wider text-neutral-400 font-semibold block">
+                    What disciplines are you looking to activate?
                   </label>
-                ))}
-              </div>
-            </div>
+                  <div className="flex flex-wrap gap-2.5">
+                    {campaignOptions.map((opt) => {
+                      const isSelected = selectedPills.includes(opt);
+                      return (
+                        <button
+                          type="button"
+                          key={opt}
+                          onClick={() => togglePill(opt)}
+                          className={`font-inter text-xs px-4.5 py-2.5 rounded-full border transition-all ${
+                            isSelected
+                              ? "bg-[#c8f135] text-black border-[#c8f135] font-semibold shadow-[0_0_12px_rgba(200,241,53,0.3)]"
+                              : "bg-[#111] text-neutral-300 border-[#262626] hover:border-[#444]"
+                          }`}
+                        >
+                          {opt}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
 
-            {/* Message */}
-            <div className="space-y-2">
-              <label className="font-inter text-xs uppercase tracking-widest text-neutral-400 font-semibold block">
-                Tell us about the campaign *
-              </label>
-              <textarea
-                required
-                rows={5}
-                placeholder="Objectives, target cities/colleges, estimated timeline, budget range..."
-                className="w-full px-5 py-4 rounded-xl bg-[#111] border border-[#262626] text-white text-sm focus:outline-none focus:border-[#c8f135] transition-colors resize-none"
-              />
-            </div>
+                {/* Budget Range */}
+                <div className="space-y-3">
+                  <label className="font-mono text-xs uppercase tracking-wider text-neutral-400 font-semibold block">
+                    Estimated Campaign Budget
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    {budgetRanges.map((range) => {
+                      const isSelected = selectedBudget === range;
+                      return (
+                        <button
+                          type="button"
+                          key={range}
+                          onClick={() => setSelectedBudget(range)}
+                          className={`py-3.5 px-3 rounded-xl border font-inter text-xs text-center transition-all ${
+                            isSelected
+                              ? "bg-white text-black border-white font-bold"
+                              : "bg-[#111] text-neutral-400 border-[#262626] hover:border-[#444]"
+                          }`}
+                        >
+                          {range}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
 
-            <button
-              type="submit"
-              className="inline-flex items-center gap-3 px-10 py-5 rounded-xl bg-[#c8f135] text-black font-inter font-bold text-xs tracking-widest uppercase hover:bg-white transition-all duration-300 shadow-xl"
-              data-cursor="explore"
-            >
-              <span>SEND BRIEF</span>
-              <ArrowUpRight size={16} />
-            </button>
-          </form>
+                {/* Message */}
+                <div className="space-y-2">
+                  <label className="font-mono text-xs uppercase tracking-wider text-neutral-400 font-semibold block">
+                    Brief Outline / Key Objectives *
+                  </label>
+                  <textarea
+                    required
+                    rows={4}
+                    placeholder="Objectives, target cities/colleges, estimated timeline, key deliverables..."
+                    className="w-full px-5 py-4 rounded-xl bg-[#111] border border-[#262626] text-white text-sm focus:outline-none focus:border-[#c8f135] transition-colors resize-none"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="inline-flex items-center gap-3 px-10 py-5 rounded-xl bg-[#c8f135] text-black font-inter font-bold text-xs tracking-widest uppercase hover:bg-white transition-all duration-300 shadow-[0_0_25px_rgba(200,241,53,0.35)] disabled:opacity-50"
+                  data-cursor="explore"
+                >
+                  <span>{loading ? "TRANSMITTING BRIEF..." : "TRANSMIT BRIEF"}</span>
+                  <ArrowUpRight size={16} />
+                </button>
+              </form>
+            )}
+          </div>
 
           {/* Right Direct Contact Info */}
-          <div className="lg:col-span-4 space-y-8 bg-[#111] border border-[#222] p-8 sm:p-10 rounded-2xl">
+          <div className="lg:col-span-4 space-y-6 bg-[#111] border border-[#222] p-6 sm:p-8 md:p-10 rounded-2xl shadow-xl w-full">
             <div>
               <span className="font-mono text-xs uppercase tracking-widest text-[#c8f135] font-semibold block mb-2">
-                DIRECT CHANNELS
+                DIRECT PIPELINE
               </span>
-              <h2 className="font-satoshi font-bold text-2xl text-white">
-                Talk directly with our team.
+              <h2 className="font-satoshi font-bold text-xl sm:text-2xl md:text-3xl text-white">
+                Speak directly with strategy.
               </h2>
             </div>
 
-            <div className="space-y-6 pt-4 border-t border-[#222]">
-              <div className="flex items-start gap-4">
-                <Mail className="text-[#c8f135] mt-1 shrink-0" size={18} />
+            <div className="space-y-5 pt-4 border-t border-[#222]">
+              <div className="flex items-start gap-3.5">
+                <Mail className="text-[#c8f135] mt-1 shrink-0" size={20} />
                 <div>
-                  <span className="font-inter text-xs uppercase tracking-wider text-neutral-500 block">
-                    Email
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-neutral-500 block">
+                    Inquiries
                   </span>
                   <a
                     href="mailto:hello@buzzcrafterss.com"
-                    className="font-inter text-sm text-white hover:text-[#c8f135] transition-colors"
+                    className="font-inter text-sm sm:text-base text-white hover:text-[#c8f135] transition-colors"
                   >
                     hello@buzzcrafterss.com
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <MapPin className="text-[#c8f135] mt-1 shrink-0" size={18} />
+              <div className="flex items-start gap-3.5">
+                <MapPin className="text-[#c8f135] mt-1 shrink-0" size={20} />
                 <div>
-                  <span className="font-inter text-xs uppercase tracking-wider text-neutral-500 block">
-                    Presence
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-neutral-500 block">
+                    Operational Hubs
                   </span>
-                  <span className="font-inter text-sm text-neutral-300">
-                    Mumbai · Delhi NCR · Bengaluru · Nationwide Campus Network
+                  <span className="font-inter text-xs sm:text-sm text-neutral-300 leading-relaxed block">
+                    Mumbai · Delhi NCR · Bengaluru · 50+ College Hubs Across India
                   </span>
                 </div>
+              </div>
+
+              <div className="p-5 rounded-xl bg-[#0a0a0a] border border-[#262626] mt-4">
+                <div className="flex items-center gap-2 text-xs font-mono text-[#c8f135] uppercase mb-1.5">
+                  <Sparkles size={14} />
+                  <span>SLA GUARANTEE</span>
+                </div>
+                <p className="font-inter text-xs text-neutral-400 leading-relaxed">
+                  Every submitted brief is reviewed by an Agency Partner within 24 business hours with initial feasibility and strategy notes.
+                </p>
               </div>
             </div>
           </div>

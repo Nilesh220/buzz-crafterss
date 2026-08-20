@@ -11,14 +11,14 @@ export const metadata: Metadata = {
 
 export default function InsightsPage() {
   return (
-    <main className="min-h-screen bg-[#f5f5f0] text-[#0a0a0a] pt-36 pb-28 px-6 sm:px-10 md:px-16 lg:px-24">
-      <div className="max-w-7xl mx-auto w-full">
+    <main className="min-h-screen bg-[#f5f5f0] text-[#0a0a0a] pt-28 sm:pt-36 md:pt-40 pb-20 sm:pb-28 w-full">
+      <div className="site-container">
         {/* Header */}
-        <div className="mb-20 pb-12 border-b border-black/10">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-5 h-px bg-black" />
-            <span className="font-inter text-xs font-semibold tracking-[0.25em] uppercase text-black/50">
-              Thought Leadership
+        <div className="mb-14 sm:mb-20 pb-8 sm:pb-12 border-b border-black/10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-6 h-px bg-black" />
+            <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-black/60">
+              THOUGHT LEADERSHIP
             </span>
           </div>
 
@@ -26,39 +26,39 @@ export default function InsightsPage() {
             Thinking Out Loud.
           </h1>
 
-          <p className="font-inter text-black/70 text-lg md:text-xl max-w-2xl leading-relaxed">
+          <p className="font-inter text-black/75 text-base sm:text-lg md:text-xl max-w-3xl leading-relaxed">
             Essays, frameworks, and tactical breakdowns on the evolving landscape of youth marketing, experiential design, and creator distribution.
           </p>
         </div>
 
         {/* Articles Grid */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-10 w-full">
           {insights.map((article) => (
             <Link
               key={article.id}
               href={`/insights/${article.slug}`}
-              className="group block p-8 sm:p-10 rounded-2xl border border-black/10 bg-white hover:border-black hover:shadow-xl transition-all duration-300"
+              className="group block p-6 sm:p-8 md:p-10 rounded-2xl border border-black/10 bg-white hover:border-black hover:shadow-xl transition-all duration-300 w-full"
               data-cursor="explore"
             >
-              <div className="flex items-center justify-between mb-6">
-                <span className="font-inter text-xs font-bold tracking-wider uppercase px-3.5 py-1.5 rounded-full bg-[#0a0a0a] text-white">
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-inter text-xs font-bold tracking-wider uppercase px-3 py-1 rounded-full bg-[#0a0a0a] text-white">
                   {article.category}
                 </span>
-                <span className="font-inter text-xs text-black/50 font-medium">
+                <span className="font-mono text-xs text-black/50 font-medium">
                   {article.readTime}
                 </span>
               </div>
 
-              <h2 className="font-satoshi font-bold text-2xl sm:text-3xl text-black mb-4 tracking-tight leading-snug group-hover:text-black transition-colors">
+              <h2 className="font-satoshi font-bold text-xl sm:text-2xl md:text-3xl text-black mb-3 tracking-tight leading-snug group-hover:text-black transition-colors">
                 {article.title}
               </h2>
 
-              <p className="font-inter text-base text-black/65 leading-relaxed mb-8">
+              <p className="font-inter text-xs sm:text-sm md:text-base text-black/65 leading-relaxed mb-6">
                 {article.excerpt}
               </p>
 
-              <div className="pt-6 border-t border-black/10 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-black">
-                <span className="text-black/40">{article.date}</span>
+              <div className="pt-4 border-t border-black/10 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-black">
+                <span className="text-black/40 font-mono">{article.date}</span>
                 <span className="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                   <span>Read Article</span>
                   <ArrowUpRight size={14} />

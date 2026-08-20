@@ -1,123 +1,61 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
 export default function FinalCTA() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setInView(true);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative bg-bc-black py-28 md:py-44 px-6 sm:px-10 md:px-16 lg:px-20 overflow-hidden"
-    >
+    <section className="relative bg-[#0a0a0a] py-24 sm:py-32 md:py-44 overflow-hidden w-full">
       {/* Radial ambient glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(ellipse 70% 60% at 50% 100%, rgba(200,241,53,0.08) 0%, transparent 70%)",
+            "radial-gradient(ellipse 70% 60% at 50% 100%, rgba(200,241,53,0.15) 0%, transparent 70%)",
         }}
       />
 
-      <div className="max-w-7xl mx-auto text-center relative z-10 w-full">
+      <div className="site-container relative z-10 flex flex-col items-center text-center">
         {/* Label */}
-        <div
-          className="flex items-center justify-center gap-3 mb-8 transition-all duration-700"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(16px)",
-          }}
-        >
-          <div className="w-5 h-px bg-bc-lime" />
-          <span className="font-inter text-xs font-semibold tracking-[0.25em] uppercase text-bc-lime">
-            Let&apos;s Build Something
+        <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="w-6 h-px bg-[#c8f135]" />
+          <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-[#c8f135]">
+            LET&apos;S BUILD TOGETHER
           </span>
-          <div className="w-5 h-px bg-bc-lime" />
+          <div className="w-6 h-px bg-[#c8f135]" />
         </div>
 
-        {/* Headline in natural flow */}
-        <div
-          className="mb-8 transition-all duration-700 delay-100"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(16px)",
-          }}
-        >
-          <h2 className="font-satoshi font-black tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.05]">
-            <span className="block text-white">GOT A</span>
-            <span className="block text-white">CAMPAIGN</span>
-            <span className="block text-bc-lime">IN MIND?</span>
-          </h2>
-        </div>
+        {/* Headline */}
+        <h2 className="font-satoshi font-black tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.95] mb-6">
+          <span className="block text-white">GOT A CAMPAIGN</span>
+          <span className="block text-[#c8f135] drop-shadow-[0_0_35px_rgba(200,241,53,0.4)]">
+            IN MIND?
+          </span>
+        </h2>
 
         {/* Supporting copy */}
-        <p
-          className="font-inter text-bc-white/60 text-base md:text-xl max-w-xl mx-auto leading-relaxed mb-12 transition-all duration-700 delay-200"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(16px)",
-          }}
-        >
-          Let&apos;s turn the brief into something people can experience, talk about and remember.
+        <p className="font-inter text-neutral-300 text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto leading-relaxed mb-10">
+          Turn your brief into something audiences can step inside, participate in, and remember.
         </p>
 
         {/* Action Buttons */}
-        <div
-          className="flex flex-col sm:flex-row items-center justify-center gap-5 transition-all duration-700 delay-300"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(16px)",
-          }}
-        >
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-3 px-9 py-4 bg-bc-lime text-bc-black font-inter font-bold text-xs tracking-widest uppercase hover:bg-bc-white transition-all duration-300 shadow-xl"
+            className="inline-flex items-center gap-3 px-9 py-5 rounded-2xl bg-[#c8f135] text-black font-inter font-bold text-xs tracking-widest uppercase hover:bg-white transition-all duration-300 shadow-[0_0_30px_rgba(200,241,53,0.35)] group"
             data-cursor="explore"
           >
-            <span>START A PROJECT</span>
-            <span>→</span>
+            <span>START A CAMPAIGN</span>
+            <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
+          
           <a
             href="mailto:hello@buzzcrafterss.com"
-            className="font-inter text-sm font-medium tracking-widest uppercase text-bc-white/60 hover:text-bc-lime transition-colors duration-300 px-4 py-2"
+            className="font-inter text-xs sm:text-sm font-semibold tracking-wider uppercase text-neutral-400 hover:text-[#c8f135] transition-colors duration-300 px-6 py-4 rounded-2xl border border-[#222] bg-[#111]"
           >
             hello@buzzcrafterss.com
           </a>
-        </div>
-
-        {/* Large down arrow */}
-        <div
-          className="mt-16 flex justify-center transition-all duration-700 delay-400"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(16px)",
-          }}
-          aria-hidden="true"
-        >
-          <div
-            className="font-satoshi font-black text-bc-lime/20 select-none text-6xl sm:text-7xl md:text-8xl animate-bounce"
-          >
-            ↓
-          </div>
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type CursorState = "default" | "view" | "explore" | "drag" | "open";
+type CursorState = "default" | "view" | "explore" | "drag" | "open" | "text";
 
 const LABELS: Record<CursorState, string> = {
   default: "",
@@ -10,6 +10,7 @@ const LABELS: Record<CursorState, string> = {
   explore: "EXPLORE",
   drag: "DRAG",
   open: "OPEN",
+  text: "",
 };
 
 export default function CustomCursor() {
@@ -18,114 +19,135 @@ export default function CustomCursor() {
   const labelRef = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<CursorState>("default");
   const [visible, setVisible] = useState(false);
-  const pos = useRef({ x: 0, y: 0 });
-  const ringPos = useRef({ x: 0, y: 0 });
-  const rafId = useRef<number>(0);
+  const [mounted, setMounted] = useState(false);
+
+  const mousePos = useRef({ x: -100, y: -100 });
+  const ringPos = useRef({ x: -100, y: -100 });
+  const stateRef = useRef<CursorState>("default");
 
   useEffect(() => {
-    // Only enable on non-touch devices
-    if (window.matchMedia("(pointer: coarse)").matches) return;
+    stateRef.current = state;
+  }, [state]);
 
-    const onMove = (e: MouseEvent) => {
-      pos.current = { x: e.clientX, y: e.clientY };
+  useEffect(() => {
+    // Only enable on fine pointer devices (desktop with mouse)
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    setMounted(true);
+
+    const onMouseMove = (e: MouseEvent) => {
+      mousePos.current.x = e.clientX;
+      mousePos.current.y = e.clientY;
       if (!visible) setVisible(true);
     };
 
-    const onLeave = () => setVisible(false);
-    const onEnter = () => setVisible(true);
+    const onMouseLeave = () => setVisible(false);
+    const onMouseEnter = () => setVisible(true);
 
-    document.addEventListener("mousemove", onMove);
-    document.documentElement.addEventListener("mouseleave", onLeave);
-    document.documentElement.addEventListener("mouseenter", onEnter);
+    // Fast, lightweight event delegation - ZERO DOM mutation observer needed!
+    const onMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
 
-    // Hover detection for interactive elements
-    const addHover = (selector: string, cursorState: CursorState) => {
-      document.querySelectorAll<HTMLElement>(selector).forEach((el) => {
-        el.addEventListener("mouseenter", () => setState(cursorState));
-        el.addEventListener("mouseleave", () => setState("default"));
-      });
+      const cursorEl = target.closest<HTMLElement>("[data-cursor]");
+      if (cursorEl) {
+        const val = cursorEl.getAttribute("data-cursor") as CursorState;
+        if (val && LABELS[val] !== undefined) {
+          setState(val);
+          return;
+        }
+      }
+
+      if (target.closest("a, button, [role='button'], .clickable")) {
+        setState("explore");
+        return;
+      }
+
+      if (target.closest("input, textarea, [contenteditable='true']")) {
+        setState("text");
+        return;
+      }
+
+      setState("default");
     };
 
-    const setupHovers = () => {
-      addHover(".work-card, [data-cursor='view']", "view");
-      addHover("a, button, [data-cursor='explore']", "explore");
-      addHover("[data-cursor='drag']", "drag");
-      addHover("[data-cursor='open']", "open");
-    };
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("mouseover", onMouseOver, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onMouseLeave);
+    document.documentElement.addEventListener("mouseenter", onMouseEnter);
 
-    setupHovers();
-
-    // Observe DOM mutations to re-apply hover on dynamic content
-    const observer = new MutationObserver(setupHovers);
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // RAF loop for smooth cursor
+    let rafId: number;
     const loop = () => {
-      const lerpFactor = 0.12;
-      ringPos.current.x += (pos.current.x - ringPos.current.x) * lerpFactor;
-      ringPos.current.y += (pos.current.y - ringPos.current.y) * lerpFactor;
+      // Smooth interpolation (lerp) for the outer ring
+      const lerp = 0.18;
+      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * lerp;
+      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * lerp;
 
       if (dotRef.current) {
-        dotRef.current.style.left = `${pos.current.x}px`;
-        dotRef.current.style.top = `${pos.current.y}px`;
+        dotRef.current.style.transform = `translate3d(${mousePos.current.x}px, ${mousePos.current.y}px, 0) translate(-50%, -50%)`;
       }
       if (ringRef.current) {
-        ringRef.current.style.left = `${ringPos.current.x}px`;
-        ringRef.current.style.top = `${ringPos.current.y}px`;
+        ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) translate(-50%, -50%)`;
       }
       if (labelRef.current) {
-        labelRef.current.style.left = `${ringPos.current.x}px`;
-        labelRef.current.style.top = `${ringPos.current.y}px`;
-        labelRef.current.textContent = LABELS[state];
+        labelRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) translate(-50%, -50%)`;
+        labelRef.current.textContent = LABELS[stateRef.current] || "";
       }
 
-      rafId.current = requestAnimationFrame(loop);
+      rafId = requestAnimationFrame(loop);
     };
 
-    rafId.current = requestAnimationFrame(loop);
+    rafId = requestAnimationFrame(loop);
 
     return () => {
-      document.removeEventListener("mousemove", onMove);
-      document.documentElement.removeEventListener("mouseleave", onLeave);
-      document.documentElement.removeEventListener("mouseenter", onEnter);
-      cancelAnimationFrame(rafId.current);
-      observer.disconnect();
+      window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseover", onMouseOver);
+      document.documentElement.removeEventListener("mouseleave", onMouseLeave);
+      document.documentElement.removeEventListener("mouseenter", onMouseEnter);
+      cancelAnimationFrame(rafId);
     };
-  }, [visible, state]);
+  }, [visible]);
 
-  const isExpanded = state !== "default";
+  if (!mounted) return null;
+
+  const isExpanded = state === "view" || state === "explore" || state === "drag" || state === "open";
+  const isText = state === "text";
 
   return (
     <>
+      {/* Center Dot */}
       <div
         ref={dotRef}
         className="cursor-dot"
         style={{
-          opacity: visible ? 1 : 0,
-          width: isExpanded ? "6px" : "12px",
-          height: isExpanded ? "6px" : "12px",
-          backgroundColor: isExpanded ? "var(--bc-lime)" : "var(--bc-lime)",
+          opacity: visible && !isText ? 1 : 0,
+          width: isExpanded ? "6px" : "10px",
+          height: isExpanded ? "6px" : "10px",
+          backgroundColor: isExpanded ? "#0a0a0a" : "var(--bc-lime)",
         }}
       />
+
+      {/* Trailing Ring */}
       <div
         ref={ringRef}
         className="cursor-ring"
         style={{
-          opacity: visible ? 1 : 0,
-          width: isExpanded ? "72px" : "40px",
-          height: isExpanded ? "72px" : "40px",
-          borderColor: isExpanded ? "var(--bc-lime)" : "rgba(200,241,53,0.4)",
-          backgroundColor: isExpanded ? "rgba(200,241,53,0.06)" : "transparent",
+          opacity: visible && !isText ? 1 : 0,
+          width: isExpanded ? "76px" : "36px",
+          height: isExpanded ? "76px" : "36px",
+          borderColor: isExpanded ? "var(--bc-lime)" : "rgba(200, 241, 53, 0.45)",
+          backgroundColor: isExpanded ? "var(--bc-lime)" : "transparent",
         }}
       />
+
+      {/* Center Label (VIEW, EXPLORE, etc.) */}
       <div
         ref={labelRef}
         className="cursor-label"
         style={{
-          opacity: isExpanded && visible ? 1 : 0,
-          color: "var(--bc-lime)",
+          opacity: isExpanded && visible && LABELS[state] ? 1 : 0,
+          color: "#0a0a0a",
           fontSize: "9px",
-          fontWeight: 700,
+          fontWeight: 800,
           letterSpacing: "0.15em",
         }}
       />
