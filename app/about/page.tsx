@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About — Not Here to Make Safe Marketing | Buzzcrafterss",
@@ -10,29 +10,29 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#f5f5f0] text-[#0a0a0a] pt-28 sm:pt-36 md:pt-40 pb-20 sm:pb-28 w-full">
+    <main className="min-h-screen bg-[#fbfbfa] text-[#121113] pt-28 sm:pt-36 md:pt-40 pb-20 sm:pb-28 w-full">
       <div className="site-container">
         {/* Header */}
-        <div className="mb-14 sm:mb-20 pb-8 sm:pb-12 border-b border-black/10">
+        <div className="mb-14 sm:mb-20 pb-8 sm:pb-12 border-b border-black/8">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-6 h-px bg-black" />
-            <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-black/60">
+            <div className="w-6 h-px bg-[#ff3366]" />
+            <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-[#ff3366]">
               AGENCY STORY
             </span>
           </div>
 
-          <h1 className="font-satoshi font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-black mb-6">
+          <h1 className="font-satoshi font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-[#121113] mb-6">
             Not Here to Play Safe.
           </h1>
 
-          <p className="font-inter text-black/75 text-base sm:text-lg md:text-2xl max-w-3xl leading-relaxed">
+          <p className="font-inter text-neutral-600 text-base sm:text-lg md:text-2xl max-w-3xl leading-relaxed">
             Buzzcrafterss was built for modern brands that want to move people — not simply broadcast at them.
           </p>
         </div>
 
         {/* Narrative Split */}
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 xl:gap-20 items-start mb-20 w-full">
-          <div className="lg:col-span-6 space-y-5 text-black/80 font-inter text-base sm:text-lg leading-relaxed">
+          <div className="lg:col-span-6 space-y-5 text-neutral-700 font-inter text-base sm:text-lg leading-relaxed">
             <p>
               We believe traditional advertising has lost its cultural potency. Young audiences swipe past banners, skip commercials, and tune out rehearsed endorsements.
             </p>
@@ -61,12 +61,12 @@ export default function AboutPage() {
             ].map((pillar) => (
               <div
                 key={pillar.title}
-                className="p-6 rounded-2xl border border-black/10 bg-white shadow-sm"
+                className="p-6 rounded-2xl border border-black/8 bg-white shadow-2xs"
               >
-                <h3 className="font-satoshi font-bold text-lg sm:text-xl text-black mb-1.5 tracking-tight">
+                <h3 className="font-satoshi font-bold text-lg sm:text-xl text-[#121113] mb-1.5 tracking-tight">
                   {pillar.title}
                 </h3>
-                <p className="font-inter text-xs sm:text-sm text-black/60 leading-relaxed">
+                <p className="font-inter text-xs sm:text-sm text-neutral-500 leading-relaxed">
                   {pillar.body}
                 </p>
               </div>
@@ -75,18 +75,18 @@ export default function AboutPage() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 sm:p-10 rounded-2xl bg-[#0a0a0a] text-white w-full">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 sm:p-10 rounded-2xl bg-white border border-black/8 shadow-xs w-full">
           {[
             { value: "6", label: "Core Service Pillars" },
             { value: "50+", label: "Campus Networks" },
             { value: "15+", label: "Cities Activated" },
             { value: "100%", label: "Turnkey Execution" },
           ].map((stat) => (
-            <div key={stat.label} className="border-l-2 border-[#333] pl-4 sm:pl-6">
-              <div className="font-satoshi font-black text-2xl sm:text-4xl text-[#c8f135] mb-1 tracking-tight">
+            <div key={stat.label} className="border-l-2 border-black/10 pl-4 sm:pl-6">
+              <div className="font-satoshi font-black text-2xl sm:text-4xl text-[#ff3366] mb-1 tracking-tight">
                 {stat.value}
               </div>
-              <div className="font-mono text-xs text-neutral-400 uppercase tracking-wider">
+              <div className="font-mono text-xs text-neutral-500 uppercase tracking-wider">
                 {stat.label}
               </div>
             </div>
@@ -94,13 +94,13 @@ export default function AboutPage() {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 pt-12 border-t border-black/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <p className="font-satoshi font-black text-black text-2xl sm:text-3xl">
+        <div className="mt-16 pt-12 border-t border-black/8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <p className="font-satoshi font-black text-[#121113] text-2xl sm:text-3xl">
             Want to work with us?
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-3 px-8 py-4.5 bg-[#0a0a0a] text-white font-inter font-bold text-xs tracking-widest uppercase hover:bg-[#c8f135] hover:text-black transition-all duration-300 rounded-xl"
+            className="inline-flex items-center gap-3 px-8 py-4.5 bg-[#ff3366] text-white font-inter font-bold text-xs tracking-widest uppercase hover:bg-[#121113] transition-all duration-300 rounded-xl shadow-md"
             data-cursor="explore"
           >
             <span>Start a Project</span>

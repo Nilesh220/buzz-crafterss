@@ -63,10 +63,10 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Zero-Lag Scroll Progress Bar */}
+      {/* Rose & Pink Scroll Progress Bar */}
       <div
         ref={progressBarRef}
-        className="fixed top-0 left-0 right-0 h-[2px] bg-[#c8f135] z-[60] origin-left pointer-events-none will-change-transform"
+        className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#ff3366] via-[#f43f5e] to-[#ec4899] z-[60] origin-left pointer-events-none will-change-transform"
         style={{
           transform: "scaleX(0)",
         }}
@@ -79,10 +79,10 @@ export default function Navbar() {
       >
         <div className="site-container pt-3 sm:pt-4">
           <nav
-            className={`flex items-center justify-between px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl transition-colors duration-300 w-full ${
+            className={`flex items-center justify-between px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl transition-all duration-300 w-full ${
               scrolled
-                ? "bg-[#0a0a0a]/90 backdrop-blur-xl border border-[#262626] shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
-                : "bg-[#0a0a0a]/50 backdrop-blur-md border border-white/10"
+                ? "bg-white/90 backdrop-blur-2xl border border-black/10 shadow-[0_12px_40px_rgba(0,0,0,0.06)]"
+                : "bg-white/70 backdrop-blur-md border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
             }`}
           >
             {/* Brand Logo */}
@@ -91,14 +91,14 @@ export default function Navbar() {
               className="flex items-center gap-2.5 group relative"
               data-cursor="explore"
             >
-              <div className="w-2.5 h-2.5 rounded-full bg-[#c8f135] group-hover:scale-125 transition-transform duration-300 shadow-[0_0_10px_#c8f135]" />
-              <span className="font-satoshi font-black text-lg sm:text-xl tracking-tighter text-white group-hover:text-[#c8f135] transition-colors duration-300">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#ff3366] group-hover:scale-125 transition-transform duration-300 shadow-[0_0_10px_rgba(255,51,102,0.6)]" />
+              <span className="font-satoshi font-black text-lg sm:text-xl tracking-tighter text-[#121113] group-hover:text-[#ff3366] transition-colors duration-300">
                 BUZZCRAFTERSS
               </span>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center gap-1.5 bg-[#141414]/70 px-3 py-1.5 rounded-full border border-white/5">
+            <div className="hidden md:flex items-center gap-1.5 bg-[#f6f5f0]/90 px-3 py-1.5 rounded-full border border-black/5">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
                 return (
@@ -107,8 +107,8 @@ export default function Navbar() {
                     href={link.href}
                     className={`relative px-4 py-2 rounded-full font-inter text-xs font-semibold tracking-wider uppercase transition-all duration-300 ${
                       isActive
-                        ? "text-black bg-[#c8f135] shadow-[0_0_15px_rgba(200,241,53,0.3)]"
-                        : "text-neutral-300 hover:text-white hover:bg-white/5"
+                        ? "text-[#ff3366] bg-white shadow-sm font-bold border border-[#ff3366]/20"
+                        : "text-[#555] hover:text-[#121113] hover:bg-white/60"
                     }`}
                     data-cursor="explore"
                   >
@@ -122,7 +122,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 font-inter text-xs font-bold tracking-wider uppercase px-5 py-2.5 rounded-full bg-white text-black hover:bg-[#c8f135] transition-all duration-300 shadow-md group"
+                className="inline-flex items-center gap-2 font-inter text-xs font-bold tracking-wider uppercase px-5 py-2.5 rounded-full bg-[#121113] text-white hover:bg-[#ff3366] transition-all duration-300 shadow-sm group"
                 data-cursor="explore"
               >
                 <span>Start a Project</span>
@@ -132,27 +132,27 @@ export default function Navbar() {
 
             {/* Mobile Hamburger Toggle Button */}
             <button
-              className="md:hidden text-white p-2 rounded-xl bg-[#181818] border border-[#2a2a2a] hover:border-[#c8f135] transition-colors relative z-50 flex items-center justify-center"
+              className="md:hidden text-[#121113] p-2 rounded-xl bg-white border border-black/10 hover:border-[#ff3366] transition-colors relative z-50 flex items-center justify-center"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
               data-cursor="explore"
             >
-              {menuOpen ? <X size={20} className="text-[#c8f135]" /> : <Menu size={20} />}
+              {menuOpen ? <X size={20} className="text-[#ff3366]" /> : <Menu size={20} />}
             </button>
           </nav>
         </div>
       </header>
 
-      {/* Full-Screen Animated Mobile Menu */}
+      {/* Full-Screen Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 bg-[#0a0a0a]/95 backdrop-blur-2xl flex flex-col justify-between p-8 pt-28 transition-all duration-500 md:hidden ${
+        className={`fixed inset-0 z-40 bg-[#fbfbfa]/98 backdrop-blur-2xl flex flex-col justify-between p-8 pt-28 transition-all duration-500 md:hidden ${
           menuOpen
             ? "opacity-100 pointer-events-auto translate-y-0"
             : "opacity-0 pointer-events-none -translate-y-4"
         }`}
       >
         <div className="flex flex-col gap-6">
-          <span className="font-mono text-xs text-[#c8f135] tracking-widest uppercase">
+          <span className="font-mono text-xs text-[#ff3366] tracking-widest uppercase font-semibold">
             NAVIGATION MENU
           </span>
 
@@ -165,21 +165,21 @@ export default function Navbar() {
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
                   className={`font-satoshi font-black text-3xl sm:text-4xl tracking-tight transition-all duration-300 flex items-center justify-between ${
-                    isActive ? "text-[#c8f135] pl-2" : "text-white hover:text-[#c8f135]"
+                    isActive ? "text-[#ff3366] pl-2" : "text-[#121113] hover:text-[#ff3366]"
                   }`}
                   style={{
                     transitionDelay: menuOpen ? `${idx * 50}ms` : "0ms",
                   }}
                 >
                   <span>{link.label}</span>
-                  <span className="font-mono text-sm text-neutral-600">0{idx + 1}</span>
+                  <span className="font-mono text-sm text-neutral-400">0{idx + 1}</span>
                 </Link>
               );
             })}
             <Link
               href="/contact"
               onClick={() => setMenuOpen(false)}
-              className="font-satoshi font-black text-3xl sm:text-4xl text-[#c8f135] tracking-tight hover:text-white transition-colors mt-2"
+              className="font-satoshi font-black text-3xl sm:text-4xl text-[#ff3366] tracking-tight hover:text-[#121113] transition-colors mt-2"
             >
               Start a Project →
             </Link>
@@ -187,17 +187,17 @@ export default function Navbar() {
         </div>
 
         {/* Bottom Details */}
-        <div className="border-t border-[#222] pt-6 flex flex-col gap-4">
+        <div className="border-t border-black/10 pt-6 flex flex-col gap-4">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#c8f135] animate-pulse" />
-            <span className="font-mono text-xs uppercase tracking-wider text-neutral-400">
+            <span className="w-2 h-2 rounded-full bg-[#ff3366] animate-pulse" />
+            <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">
               Mumbai · Delhi NCR · Bengaluru
             </span>
           </div>
 
           <a
             href="mailto:hello@buzzcrafterss.com"
-            className="font-inter text-sm text-neutral-300 hover:text-[#c8f135] transition-colors"
+            className="font-inter text-sm text-neutral-700 hover:text-[#ff3366] transition-colors"
           >
             hello@buzzcrafterss.com
           </a>

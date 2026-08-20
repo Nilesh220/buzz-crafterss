@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { work } from "@/lib/data/work";
-import { ArrowUpRight, Sparkles, Filter, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, Sparkles, Filter } from "lucide-react";
 
 function CountUp({ target }: { target: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -43,19 +43,19 @@ function CountUp({ target }: { target: string }) {
 
 const cardThemes = [
   {
-    bg: "from-[#0f172a] via-[#090d16] to-[#05080e]",
-    accentGlow: "rgba(56, 189, 248, 0.15)",
-    tagBg: "border-sky-500/30 text-sky-400 bg-sky-500/10",
+    bg: "from-[#ffffff] via-[#fff5f7] to-[#fce7f3]",
+    accentGlow: "rgba(255, 51, 102, 0.12)",
+    tagBg: "border-[#ff3366]/20 text-[#ff3366] bg-[#fff1f4]",
   },
   {
-    bg: "from-[#201017] via-[#12080d] to-[#070305]",
-    accentGlow: "rgba(244, 63, 94, 0.15)",
-    tagBg: "border-rose-500/30 text-rose-400 bg-rose-500/10",
+    bg: "from-[#ffffff] via-[#f5f8ff] to-[#e8f0fe]",
+    accentGlow: "rgba(56, 189, 248, 0.12)",
+    tagBg: "border-sky-500/20 text-sky-600 bg-sky-50",
   },
   {
-    bg: "from-[#102015] via-[#08130b] to-[#030704]",
-    accentGlow: "rgba(200, 241, 53, 0.15)",
-    tagBg: "border-[#c8f135]/30 text-[#c8f135] bg-[#c8f135]/10",
+    bg: "from-[#ffffff] via-[#fffbf2] to-[#fef3c7]",
+    accentGlow: "rgba(245, 158, 11, 0.12)",
+    tagBg: "border-amber-500/20 text-amber-600 bg-amber-50",
   },
 ];
 
@@ -72,25 +72,25 @@ export default function WorkSection() {
   return (
     <section
       id="work"
-      className="bg-[#0a0a0a] text-[#f5f5f0] py-20 sm:py-28 md:py-36 border-b border-[#222] w-full"
+      className="bg-[#f7f6f2] text-[#121113] py-20 sm:py-28 md:py-36 border-b border-black/8 w-full"
     >
       <div className="site-container">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16 pb-8 border-b border-[#222]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16 pb-8 border-b border-black/8">
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-6 h-px bg-[#c8f135]" />
-              <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-[#c8f135]">
+              <div className="w-6 h-px bg-[#ff3366]" />
+              <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-[#ff3366]">
                 05 / SELECTED PORTFOLIO
               </span>
             </div>
-            <h2 className="font-satoshi font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white">
+            <h2 className="font-satoshi font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-[#121113]">
               We Make Things Happen.
             </h2>
           </div>
 
           <div className="flex flex-col md:items-end gap-4">
-            <p className="font-inter text-neutral-400 text-sm sm:text-base max-w-sm leading-relaxed">
+            <p className="font-inter text-neutral-600 text-sm sm:text-base max-w-sm leading-relaxed">
               Explore case studies engineered for cultural relevance, on-ground footfall, and direct digital conversion.
             </p>
           </div>
@@ -107,8 +107,8 @@ export default function WorkSection() {
               onClick={() => setActiveFilter(cat)}
               className={`px-4 py-2 rounded-full font-inter text-xs font-semibold tracking-wider uppercase transition-all ${
                 activeFilter === cat
-                  ? "bg-[#c8f135] text-black shadow-[0_0_15px_rgba(200,241,53,0.3)]"
-                  : "bg-[#141414] text-neutral-400 border border-[#2a2a2a] hover:border-white/20 hover:text-white"
+                  ? "bg-[#ff3366] text-white shadow-[0_4px_15px_rgba(255,51,102,0.25)] font-bold"
+                  : "bg-white text-neutral-700 border border-black/8 hover:border-[#ff3366]/30 hover:text-[#ff3366]"
               }`}
               data-cursor="explore"
             >
@@ -124,11 +124,11 @@ export default function WorkSection() {
             return (
               <div
                 key={item.id}
-                className={`relative rounded-3xl overflow-hidden border border-[#262626] bg-gradient-to-br ${theme.bg} p-6 sm:p-10 md:p-14 transition-all duration-500 hover:border-[#444] group shadow-2xl w-full`}
+                className={`relative rounded-3xl overflow-hidden border border-black/10 bg-gradient-to-br ${theme.bg} p-6 sm:p-10 md:p-14 transition-all duration-500 hover:border-black/20 group shadow-[0_15px_40px_rgba(0,0,0,0.04)] w-full`}
               >
                 {/* Ambient glow */}
                 <div
-                  className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[160px] pointer-events-none opacity-40 group-hover:opacity-80 transition-opacity duration-700"
+                  className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[160px] pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-700"
                   style={{ background: theme.accentGlow }}
                 />
 
@@ -138,7 +138,7 @@ export default function WorkSection() {
                     <div>
                       {/* Meta Tags */}
                       <div className="flex flex-wrap items-center gap-2 mb-5">
-                        <span className="font-mono text-xs text-neutral-400 uppercase tracking-widest mr-2">
+                        <span className="font-mono text-xs text-neutral-500 uppercase tracking-widest mr-2">
                           0{item.id} / {item.year}
                         </span>
                         {item.categories.map((cat) => (
@@ -153,16 +153,16 @@ export default function WorkSection() {
 
                       {/* Client & Title */}
                       <div className="mb-5">
-                        <span className="font-inter text-xs tracking-[0.2em] uppercase text-neutral-400 font-semibold block mb-2">
+                        <span className="font-inter text-xs tracking-[0.2em] uppercase text-neutral-500 font-semibold block mb-2">
                           {item.client}
                         </span>
-                        <h3 className="font-satoshi font-black text-2xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight group-hover:text-[#c8f135] transition-colors duration-300">
+                        <h3 className="font-satoshi font-black text-2xl sm:text-4xl md:text-5xl text-[#121113] tracking-tight leading-tight group-hover:text-[#ff3366] transition-colors duration-300">
                           {item.project}
                         </h3>
                       </div>
 
                       {/* Brief Pitch */}
-                      <p className="font-inter text-neutral-300 text-sm sm:text-base md:text-lg leading-relaxed mb-8 max-w-xl">
+                      <p className="font-inter text-neutral-700 text-sm sm:text-base md:text-lg leading-relaxed mb-8 max-w-xl">
                         {item.description}
                       </p>
                     </div>
@@ -171,8 +171,8 @@ export default function WorkSection() {
                     <div>
                       <Link
                         href={`/work/${item.id}`}
-                        className="inline-flex items-center gap-3 px-7 py-4 rounded-xl bg-white text-black font-inter font-bold text-xs tracking-widest uppercase hover:bg-[#c8f135] transition-all duration-300 shadow-md group/btn"
-                        data-cursor="view"
+                        className="inline-flex items-center gap-3 px-7 py-4 rounded-xl bg-[#121113] text-white font-inter font-bold text-xs tracking-widest uppercase hover:bg-[#ff3366] transition-all duration-300 shadow-md group/btn"
+                        data-cursor="explore"
                       >
                         <span>VIEW FULL CASE STUDY</span>
                         <ArrowUpRight size={16} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
@@ -181,12 +181,12 @@ export default function WorkSection() {
                   </div>
 
                   {/* Right Column: Key Metrics Showcase */}
-                  <div className="lg:col-span-5 bg-[#0a0a0a]/75 backdrop-blur-xl border border-[#222] rounded-2xl p-6 sm:p-8 flex flex-col gap-6 w-full">
-                    <div className="flex items-center justify-between border-b border-[#222] pb-4">
-                      <span className="font-mono text-xs uppercase tracking-widest text-[#c8f135] font-semibold flex items-center gap-1.5">
+                  <div className="lg:col-span-5 bg-white/95 backdrop-blur-xl border border-black/8 rounded-2xl p-6 sm:p-8 flex flex-col gap-6 w-full shadow-sm">
+                    <div className="flex items-center justify-between border-b border-black/8 pb-4">
+                      <span className="font-mono text-xs uppercase tracking-widest text-[#ff3366] font-bold flex items-center gap-1.5">
                         <Sparkles size={14} /> VERIFIED METRICS
                       </span>
-                      <span className="text-[11px] text-neutral-500 font-mono">
+                      <span className="text-[11px] text-neutral-400 font-mono">
                         IMPACT AUDIT
                       </span>
                     </div>
@@ -195,12 +195,12 @@ export default function WorkSection() {
                       {item.metrics.map((metric) => (
                         <div
                           key={metric.label}
-                          className="flex flex-col border-l-2 border-[#333] pl-4 hover:border-[#c8f135] transition-colors duration-300"
+                          className="flex flex-col border-l-2 border-black/10 pl-4 hover:border-[#ff3366] transition-colors duration-300"
                         >
-                          <span className="font-satoshi font-black text-3xl sm:text-4xl text-white tracking-tight">
+                          <span className="font-satoshi font-black text-3xl sm:text-4xl text-[#121113] tracking-tight">
                             <CountUp target={metric.value} />
                           </span>
-                          <span className="font-inter text-xs text-neutral-400 uppercase tracking-wider mt-1">
+                          <span className="font-inter text-xs text-neutral-500 uppercase tracking-wider mt-1">
                             {metric.label}
                           </span>
                         </div>
@@ -208,7 +208,7 @@ export default function WorkSection() {
                     </div>
 
                     {/* Strategic Insight Takeaway */}
-                    <div className="pt-4 border-t border-[#222] text-xs sm:text-sm text-neutral-300 italic">
+                    <div className="pt-4 border-t border-black/8 text-xs sm:text-sm text-neutral-700 italic">
                       &ldquo;{item.takeaway}&rdquo;
                     </div>
                   </div>
@@ -222,7 +222,7 @@ export default function WorkSection() {
         <div className="mt-14 text-center">
           <Link
             href="/work"
-            className="inline-flex items-center gap-2 font-inter text-xs font-bold tracking-widest uppercase text-[#c8f135] hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 font-inter text-xs font-bold tracking-widest uppercase text-[#ff3366] hover:text-[#121113] transition-colors"
             data-cursor="explore"
           >
             <span>View All Detailed Case Studies</span>

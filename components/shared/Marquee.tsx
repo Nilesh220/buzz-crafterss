@@ -12,13 +12,13 @@ interface MarqueeProps {
   dark?: boolean;
 }
 
-export default function Marquee({ reverse = false, speed = 35, dark = true }: MarqueeProps) {
+export default function Marquee({ reverse = false, speed = 35, dark = false }: MarqueeProps) {
   const content = [...items, ...items, ...items];
 
   return (
     <div
       className={`overflow-hidden py-4 sm:py-5 border-y select-none ${
-        dark ? "bg-[#0a0a0a] border-[#222]" : "bg-[#f5f5f0] border-black/10"
+        dark ? "bg-[#121113] border-white/10" : "bg-[#f6f5f0] border-black/8"
       }`}
     >
       <div
@@ -32,11 +32,11 @@ export default function Marquee({ reverse = false, speed = 35, dark = true }: Ma
           <span
             key={i}
             className={`inline-flex items-center gap-5 sm:gap-8 px-4 sm:px-6 font-mono text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase ${
-              dark ? "text-neutral-400" : "text-black/60"
+              dark ? "text-neutral-300" : "text-neutral-700"
             }`}
           >
             <span>{item}</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c8f135] shadow-[0_0_8px_#c8f135]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#ff3366] shadow-[0_0_8px_rgba(255,51,102,0.6)]" />
           </span>
         ))}
       </div>

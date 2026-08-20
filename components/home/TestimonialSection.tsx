@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Quote, ArrowLeft, ArrowRight, Star } from "lucide-react";
+import { Quote, ArrowLeft, ArrowRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -44,33 +44,33 @@ export default function TestimonialSection() {
   const current = testimonials[activeIdx];
 
   return (
-    <section className="bg-[#f5f5f0] text-[#0a0a0a] py-20 sm:py-28 md:py-36 border-b border-black/10 w-full">
+    <section className="bg-[#fbfbfa] text-[#121113] py-20 sm:py-28 md:py-36 border-b border-black/8 w-full">
       <div className="site-container">
         {/* Label */}
         <div className="flex items-center gap-3 mb-10 md:mb-14">
-          <div className="w-6 h-px bg-black" />
-          <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-black/60">
+          <div className="w-6 h-px bg-[#ff3366]" />
+          <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-[#ff3366]">
             12 / CLIENT VALIDATION
           </span>
         </div>
 
-        {/* Testimonial Box */}
-        <div className="bg-[#0a0a0a] text-white rounded-3xl p-8 sm:p-12 md:p-16 relative overflow-hidden shadow-2xl w-full">
+        {/* Luxury Soft Light Testimonial Box */}
+        <div className="bg-white text-[#121113] rounded-3xl p-8 sm:p-12 md:p-16 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-black/10 w-full">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-center w-full">
             {/* Quote Left */}
             <div className="lg:col-span-8 flex flex-col justify-between">
-              <Quote size={48} className="text-[#c8f135] mb-6 opacity-85" />
+              <Quote size={48} className="text-[#ff3366] mb-6 opacity-85" />
 
-              <blockquote className="font-satoshi font-bold text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-white leading-relaxed mb-8">
+              <blockquote className="font-satoshi font-bold text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-[#121113] leading-relaxed mb-8">
                 &ldquo;{current.quote}&rdquo;
               </blockquote>
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-[#262626]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-black/8">
                 <div>
-                  <div className="font-satoshi font-bold text-lg sm:text-xl text-white">
+                  <div className="font-satoshi font-bold text-lg sm:text-xl text-[#121113]">
                     {current.author}
                   </div>
-                  <div className="font-inter text-xs sm:text-sm text-neutral-400">
+                  <div className="font-inter text-xs sm:text-sm text-neutral-500">
                     {current.company}
                   </div>
                 </div>
@@ -80,17 +80,17 @@ export default function TestimonialSection() {
                   <button
                     onClick={prev}
                     aria-label="Previous quote"
-                    className="w-11 h-11 rounded-full border border-[#333] flex items-center justify-center hover:border-[#c8f135] hover:text-[#c8f135] transition-colors"
+                    className="w-11 h-11 rounded-full border border-black/15 flex items-center justify-center hover:border-[#ff3366] hover:text-[#ff3366] transition-colors"
                   >
                     <ArrowLeft size={16} />
                   </button>
-                  <span className="font-mono text-xs text-neutral-500 px-2">
+                  <span className="font-mono text-xs text-neutral-400 px-2">
                     0{activeIdx + 1} / 0{testimonials.length}
                   </span>
                   <button
                     onClick={next}
                     aria-label="Next quote"
-                    className="w-11 h-11 rounded-full border border-[#333] flex items-center justify-center hover:border-[#c8f135] hover:text-[#c8f135] transition-colors"
+                    className="w-11 h-11 rounded-full border border-black/15 flex items-center justify-center hover:border-[#ff3366] hover:text-[#ff3366] transition-colors"
                   >
                     <ArrowRight size={16} />
                   </button>
@@ -99,14 +99,14 @@ export default function TestimonialSection() {
             </div>
 
             {/* Impact Metric Right */}
-            <div className="lg:col-span-4 bg-[#141414] border border-[#262626] rounded-2xl p-6 sm:p-10 flex flex-col justify-center items-center text-center shadow-lg w-full">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-[#c8f135] mb-2 font-semibold">
+            <div className="lg:col-span-4 bg-[#fff1f4] border border-[#ff3366]/20 rounded-2xl p-6 sm:p-10 flex flex-col justify-center items-center text-center shadow-xs w-full">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#ff3366] mb-2 font-bold">
                 AUDITED RESULT
               </span>
-              <div className="font-satoshi font-black text-4xl sm:text-5xl lg:text-6xl text-white mb-2">
+              <div className="font-satoshi font-black text-4xl sm:text-5xl lg:text-6xl text-[#121113] mb-2">
                 {current.metric}
               </div>
-              <div className="font-inter text-xs sm:text-sm text-neutral-400">
+              <div className="font-inter text-xs sm:text-sm text-neutral-600">
                 {current.metricLabel}
               </div>
             </div>

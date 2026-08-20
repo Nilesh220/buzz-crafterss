@@ -69,7 +69,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable} bg-[#0a0a0a]`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable} bg-[#fbfbfa]`}>
       <head>
         {/* Preconnect and non-blocking font delivery for Satoshi */}
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
@@ -101,7 +101,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-[#0a0a0a] text-[#f5f5f0] min-h-screen flex flex-col w-full antialiased selection:bg-[#c8f135] selection:text-[#0a0a0a] font-inter">
+      <body className="bg-[#fbfbfa] text-[#121113] min-h-screen flex flex-col w-full antialiased selection:bg-[#ffd6e0] selection:text-[#ff3366] font-inter">
         <SmoothScroller />
         <CustomCursor />
         <Navbar />

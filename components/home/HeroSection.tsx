@@ -46,7 +46,7 @@ export default function HeroSection() {
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-    // Direct RAF hardware accelerated translation - Zero React state re-renders!
+    // Direct RAF hardware accelerated translation
     requestAnimationFrame(() => {
       if (glow1Ref.current) {
         glow1Ref.current.style.transform = `translate3d(${x * -30}px, ${y * -30}px, 0)`;
@@ -64,35 +64,35 @@ export default function HeroSection() {
     <section
       ref={heroRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-[90vh] lg:min-h-screen bg-[#0a0a0a] text-[#f5f5f0] overflow-hidden border-b border-[#222] flex items-center pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-24 w-full"
+      className="relative min-h-[90vh] lg:min-h-screen bg-[#fbfbfa] text-[#121113] overflow-hidden border-b border-black/8 flex items-center pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-24 w-full"
     >
-      {/* Background Interactive Ambient Mesh */}
+      {/* Background Interactive Ambient Rose & Champagne Mesh */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-        {/* Dynamic Glow Sphere 1 */}
+        {/* Soft Pink Glow Sphere 1 */}
         <div
           ref={glow1Ref}
-          className="absolute top-1/4 -left-32 w-[600px] h-[600px] rounded-full blur-[160px] opacity-25 will-change-transform"
+          className="absolute top-1/4 -left-32 w-[650px] h-[650px] rounded-full blur-[160px] opacity-45 will-change-transform"
           style={{
-            background: "radial-gradient(circle, #c8f135 0%, rgba(200,241,53,0) 70%)",
+            background: "radial-gradient(circle, #ffd6e0 0%, #fce7f3 40%, rgba(253,242,248,0) 75%)",
             transform: "translate3d(0,0,0)",
           }}
         />
-        {/* Dynamic Glow Sphere 2 */}
+        {/* Soft Champagne Glow Sphere 2 */}
         <div
           ref={glow2Ref}
-          className="absolute bottom-10 right-0 w-[700px] h-[700px] rounded-full blur-[180px] opacity-20 will-change-transform"
+          className="absolute bottom-10 right-0 w-[750px] h-[750px] rounded-full blur-[180px] opacity-35 will-change-transform"
           style={{
-            background: "radial-gradient(circle, #38bdf8 0%, rgba(56,189,248,0) 70%)",
+            background: "radial-gradient(circle, #fde2e4 0%, #fff1f2 40%, rgba(255,255,255,0) 75%)",
             transform: "translate3d(0,0,0)",
           }}
         />
 
         {/* Blueprint Grid */}
         <div
-          className="absolute inset-0 opacity-[0.09]"
+          className="absolute inset-0 opacity-[0.035]"
           style={{
             backgroundImage:
-              "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
+              "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)",
             backgroundSize: "64px 64px",
           }}
         />
@@ -113,9 +113,9 @@ export default function HeroSection() {
                 transform: mounted ? "translateY(0)" : "translateY(12px)",
               }}
             >
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#2a2a2a] bg-[#141414]/90 backdrop-blur-md shadow-sm">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#c8f135] animate-pulse shrink-0 shadow-[0_0_10px_#c8f135]" />
-                <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-neutral-300">
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-black/10 bg-white/90 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#ff3366] animate-pulse shrink-0 shadow-[0_0_10px_rgba(255,51,102,0.6)]" />
+                <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-neutral-600">
                   Brand Experiences · Creator Influence · Digital Impact
                 </span>
               </div>
@@ -129,13 +129,13 @@ export default function HeroSection() {
                 transform: mounted ? "translateY(0)" : "translateY(16px)",
               }}
             >
-              <h1 className="font-satoshi font-black tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-[5.5rem] 2xl:text-[6.25rem] leading-[0.98] text-white">
+              <h1 className="font-satoshi font-black tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-[5.5rem] 2xl:text-[6.25rem] leading-[0.98] text-[#121113]">
                 <span>WE MAKE</span>{" "}
                 <span>BRANDS</span>
-                <span className="block text-[#c8f135] drop-shadow-[0_0_30px_rgba(200,241,53,0.35)]">
+                <span className="block text-[#ff3366] drop-shadow-[0_4px_30px_rgba(255,51,102,0.2)]">
                   IMPOSSIBLE
                 </span>
-                <span className="block text-white">TO IGNORE.</span>
+                <span className="block text-[#121113]">TO IGNORE.</span>
               </h1>
             </div>
 
@@ -147,7 +147,7 @@ export default function HeroSection() {
                 transform: mounted ? "translateY(0)" : "translateY(16px)",
               }}
             >
-              <p className="font-inter text-neutral-300 text-base sm:text-lg md:text-xl leading-relaxed">
+              <p className="font-inter text-neutral-600 text-base sm:text-lg md:text-xl leading-relaxed">
                 Buzzcrafterss is an integrated experience agency creating high-voltage campaigns across campuses, communities, workplaces, and digital ecosystems.
               </p>
             </div>
@@ -162,7 +162,7 @@ export default function HeroSection() {
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-3 px-8 py-4.5 rounded-xl bg-[#c8f135] text-[#0a0a0a] font-inter font-bold text-xs tracking-widest uppercase hover:bg-white transition-all duration-300 shadow-[0_0_25px_rgba(200,241,53,0.35)] group"
+                className="inline-flex items-center gap-3 px-8 py-4.5 rounded-xl bg-[#ff3366] text-white font-inter font-bold text-xs tracking-widest uppercase hover:bg-[#121113] transition-all duration-300 shadow-[0_10px_25px_rgba(255,51,102,0.25)] group"
                 data-cursor="explore"
               >
                 <span>START A CAMPAIGN</span>
@@ -171,7 +171,7 @@ export default function HeroSection() {
 
               <a
                 href="#work"
-                className="inline-flex items-center gap-2 px-7 py-4.5 rounded-xl border border-[#2a2a2a] bg-[#141414]/60 font-inter text-xs font-semibold tracking-widest uppercase text-neutral-300 hover:text-[#c8f135] hover:border-[#c8f135]/50 transition-all duration-300"
+                className="inline-flex items-center gap-2 px-7 py-4.5 rounded-xl border border-black/10 bg-white/80 font-inter text-xs font-semibold tracking-widest uppercase text-neutral-700 hover:text-[#ff3366] hover:border-[#ff3366]/40 transition-all duration-300 shadow-sm"
                 data-cursor="explore"
               >
                 SELECTED WORK ↓
@@ -180,29 +180,29 @@ export default function HeroSection() {
 
             {/* Quick Metrics Bar */}
             <div
-              className="pt-8 border-t border-[#222] grid grid-cols-3 gap-6 transition-all duration-500 delay-250 max-w-xl"
+              className="pt-8 border-t border-black/10 grid grid-cols-3 gap-6 transition-all duration-500 delay-250 max-w-xl"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(16px)",
               }}
             >
               <div>
-                <div className="font-satoshi font-black text-2xl sm:text-4xl text-white">50+</div>
-                <div className="font-mono text-xs text-neutral-400 uppercase tracking-wider mt-1">Campuses</div>
+                <div className="font-satoshi font-black text-2xl sm:text-4xl text-[#121113]">50+</div>
+                <div className="font-mono text-xs text-neutral-500 uppercase tracking-wider mt-1">Campuses</div>
               </div>
               <div>
-                <div className="font-satoshi font-black text-2xl sm:text-4xl text-[#c8f135]">15+</div>
-                <div className="font-mono text-xs text-neutral-400 uppercase tracking-wider mt-1">Top Cities</div>
+                <div className="font-satoshi font-black text-2xl sm:text-4xl text-[#ff3366]">15+</div>
+                <div className="font-mono text-xs text-neutral-500 uppercase tracking-wider mt-1">Top Cities</div>
               </div>
               <div>
-                <div className="font-satoshi font-black text-2xl sm:text-4xl text-white">100%</div>
-                <div className="font-mono text-xs text-neutral-400 uppercase tracking-wider mt-1">Turnkey</div>
+                <div className="font-satoshi font-black text-2xl sm:text-4xl text-[#121113]">100%</div>
+                <div className="font-mono text-xs text-neutral-500 uppercase tracking-wider mt-1">Turnkey</div>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Expansive Agency Live Engine */}
+          {/* Right Column: Luxury Frosted Agency Live Engine */}
           <div
             ref={cardRef}
             className="lg:col-span-5 transition-all duration-500 delay-200 w-full will-change-transform"
@@ -211,31 +211,31 @@ export default function HeroSection() {
               transform: mounted ? "translate3d(0,0,0)" : "translateY(20px)",
             }}
           >
-            <div className="relative rounded-2xl border border-[#2a2a2a] bg-[#121212]/90 backdrop-blur-xl p-6 sm:p-8 md:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.85)] overflow-hidden group hover:border-[#444] transition-all w-full">
+            <div className="relative rounded-2xl border border-black/10 bg-white/90 backdrop-blur-2xl p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden group hover:border-[#ff3366]/40 transition-all w-full">
               
               {/* Top Bar with Live Operations Indicator */}
-              <div className="flex items-center justify-between pb-6 border-b border-[#222]">
+              <div className="flex items-center justify-between pb-6 border-b border-black/10">
                 <div className="flex items-center gap-2.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#c8f135] animate-ping shrink-0" />
-                  <span className="font-mono text-xs text-[#c8f135] uppercase tracking-wider font-semibold">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ff3366] animate-ping shrink-0" />
+                  <span className="font-mono text-xs text-[#ff3366] uppercase tracking-wider font-semibold">
                     AGENCY LIVE ENGINE
                   </span>
                 </div>
-                <div className="font-mono text-xs text-neutral-400 bg-[#0a0a0a] px-3 py-1 rounded-md border border-[#222]">
+                <div className="font-mono text-xs text-neutral-600 bg-[#f6f5f0] px-3 py-1 rounded-md border border-black/5">
                   <LiveClock />
                 </div>
               </div>
 
               {/* Status Header */}
-              <div className="py-6 border-b border-[#222]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400 block mb-1">
+              <div className="py-6 border-b border-black/10">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 block mb-1">
                   CURRENT AVAILABILITY
                 </span>
-                <h3 className="font-satoshi font-bold text-2xl sm:text-3xl text-white flex items-center gap-2">
+                <h3 className="font-satoshi font-bold text-2xl sm:text-3xl text-[#121113] flex items-center gap-2">
                   <span>Accepting Q3 / Q4 Briefs</span>
-                  <Sparkles size={20} className="text-[#c8f135]" />
+                  <Sparkles size={20} className="text-[#ff3366]" />
                 </h3>
-                <p className="font-inter text-xs sm:text-sm text-neutral-400 mt-2.5 leading-relaxed">
+                <p className="font-inter text-xs sm:text-sm text-neutral-600 mt-2.5 leading-relaxed">
                   Direct pipeline open for BTL activations, collegiate networks, creator scaling, and experiential installations.
                 </p>
               </div>
@@ -246,7 +246,7 @@ export default function HeroSection() {
                   <span className="font-mono text-[11px] text-neutral-500 uppercase tracking-widest">
                     ACTIVE DEPLOYMENT CHANNELS
                   </span>
-                  <span className="font-mono text-[10px] text-[#c8f135]">LIVE STATUS</span>
+                  <span className="font-mono text-[10px] text-[#ff3366] font-bold">LIVE STATUS</span>
                 </div>
 
                 {[
@@ -257,15 +257,15 @@ export default function HeroSection() {
                 ].map((cap) => (
                   <div
                     key={cap.name}
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#181818]/90 border border-[#242424] hover:border-[#c8f135]/40 transition-colors"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdfdfc] border border-black/8 hover:border-[#ff3366]/40 transition-colors shadow-sm"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#c8f135]" />
-                      <span className="font-inter text-xs sm:text-sm font-semibold text-neutral-200">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#ff3366]" />
+                      <span className="font-inter text-xs sm:text-sm font-semibold text-neutral-800">
                         {cap.name}
                       </span>
                     </div>
-                    <span className="font-mono text-[11px] text-neutral-300 px-2.5 py-1 rounded bg-[#0a0a0a] border border-[#2a2a2a]">
+                    <span className="font-mono text-[11px] text-neutral-600 px-2.5 py-1 rounded bg-[#f6f5f0] border border-black/5">
                       {cap.count}
                     </span>
                   </div>
@@ -273,15 +273,15 @@ export default function HeroSection() {
               </div>
 
               {/* Bottom Direct CTA */}
-              <div className="pt-5 border-t border-[#222] flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs text-neutral-400">
-                  <MapPin size={14} className="text-[#c8f135]" />
+              <div className="pt-5 border-t border-black/10 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-xs text-neutral-600">
+                  <MapPin size={14} className="text-[#ff3366]" />
                   <span>HQ Mumbai · Delhi · BLR</span>
                 </div>
 
                 <Link
                   href="/contact"
-                  className="font-inter text-xs font-bold uppercase tracking-wider text-[#c8f135] hover:text-white transition-colors flex items-center gap-1.5 group/link"
+                  className="font-inter text-xs font-bold uppercase tracking-wider text-[#ff3366] hover:text-[#121113] transition-colors flex items-center gap-1.5 group/link"
                 >
                   <span>Submit Brief</span>
                   <ArrowUpRight size={14} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
